@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+Disallow: /*?utm_
+Sitemap: https://YOUR-DOMAIN.ru/sitemap.xml
