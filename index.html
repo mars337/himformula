@@ -6,6 +6,7 @@
 <meta name="robots" content="index,follow,max-image-preview:large">
 <link rel="canonical" href="https://YOUR-DOMAIN.ru/">
 <meta name="theme-color" content="#2563eb">
+<meta name="color-scheme" content="light dark">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpath d='M32 6l22 13v26L32 58 10 45V19z' fill='none' stroke='%232563eb' stroke-width='5'/%3E%3C/svg%3E">
 <meta property="og:type" content="website"><meta property="og:locale" content="ru_RU">
 <meta property="og:title" content="Структурные формулы по названию онлайн"><meta property="og:description" content="Рисует скелетные формулы по русскому названию или SMILES. Брутто-формула, масса, экспорт SVG/PNG.">
@@ -29,7 +30,7 @@ button.p{background:var(--ac);border-color:var(--ac);color:#fff}button:hover{fil
 #out{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px}
 .c{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:12px}
 .c h3{margin:0 0 6px;font-size:15px}.c .sm{font:12px ui-monospace,monospace;color:var(--mut);word-break:break-all;margin:6px 0}
-.c svg{width:100%;height:220px;background:#fff;border-radius:8px;display:block}
+.c svg{width:100%;height:220px;background:#fff;border-radius:8px;display:block;color-scheme:light only}
 .c .b{display:flex;gap:6px;flex-wrap:wrap}.c .b button{font-size:12px;padding:4px 9px}
 .err{color:#d33;font-size:13px}
 .warn{background:#fff4d6;color:#7a4b00;border:1px solid #f0c060;border-radius:8px;padding:6px 9px;font-size:12.5px;margin:6px 0}
@@ -51,8 +52,7 @@ CC(=O)Oc1ccccc1C(=O)O
 2,3-диметилбутен-2
 пентанол-2
 п-нитротолуол</textarea>
-<div class="row"><button class="p" id="go">Нарисовать (Ctrl+Enter)</button><button id="clr">Очистить</button><button id="fb">✉ Обратная связь</button><button id="fl" title="Список названий или SMILES, по одному в строке">📂 Загрузить .txt / .csv</button><input type="file" id="ff" accept=".txt,.csv,text/plain,text/csv" style="display:none"><label style="align-self:center;color:var(--mut)"><input type="checkbox" id="nat" checked> природная стереохимия (L-аминокислоты, D-сахара, стероиды…)</label><label style="align-self:center;color:var(--mut)">Режим: <select id="mode"><option value="sci">Научный (ACS, ч/б)</option><option value="school">Школьный (цветной)</option></select></label><label style="align-self:center;color:var(--mut)"><input type="checkbox" id="exp"> развёрнутые формулы (CH₃, CH₂ вместо линий)</label></div>
-<div id="fbox" class="warn" style="display:none;background:var(--card);color:var(--tx);border-color:var(--bd)">Нашли ошибку или хотите добавить вещество? Пишите: <a id="fbm" href="mailto:marsel.shulga.1336@mail.ru?subject=Химические формулы: обратная связь">marsel.shulga.1336@mail.ru</a> <button id="fbc" style="font-size:12px;padding:2px 8px;margin-left:6px">Копировать</button><br><small style="color:var(--mut)">Укажите название или SMILES и что получилось не так.</small></div>
+<div class="row"><button class="p" id="go">Нарисовать (Ctrl+Enter)</button><button id="clr">Очистить</button><button id="fl" title="Список названий или SMILES, по одному в строке">📂 Загрузить .txt / .csv</button><input type="file" id="ff" accept=".txt,.csv,text/plain,text/csv" style="display:none"><label style="align-self:center;color:var(--mut)"><input type="checkbox" id="nat" checked> природная стереохимия (L-аминокислоты, D-сахара, стероиды…)</label><label style="align-self:center;color:var(--mut)">Режим: <select id="mode"><option value="sci">Научный (ACS, ч/б)</option><option value="school">Школьный (цветной)</option></select></label><label style="align-self:center;color:var(--mut)"><input type="checkbox" id="exp"> развёрнутые формулы (CH₃, CH₂ вместо линий)</label></div>
 <div class="row ex" id="ex"></div>
 <div class="row" id="bar" style="display:none"><span id="barmsg"></span><button id="csvb">⬇ Скачать таблицу (CSV)</button></div>
 <div id="out"></div>
@@ -1044,8 +1044,6 @@ document.getElementById('nat').onchange=run;
 document.getElementById('exp').onchange=run;
 try{const sv=localStorage.getItem('draw_mode');if(sv)document.getElementById('mode').value=sv;}catch(e){}
 document.getElementById('mode').onchange=()=>{try{localStorage.setItem('draw_mode',document.getElementById('mode').value);}catch(e){}run();};
-document.getElementById('fb').onclick=()=>{const b=document.getElementById('fbox');b.style.display=b.style.display==='none'?'block':'none';};
-document.getElementById('fbc').onclick=e=>{const a='marsel.shulga.1336@mail.ru';try{navigator.clipboard.writeText(a);e.target.textContent='Скопировано';}catch(x){e.target.textContent=a;}};
 document.getElementById('go').onclick=run;
 document.getElementById('clr').onclick=()=>{document.getElementById('in').value='';out.innerHTML='';};
 document.getElementById('in').addEventListener('keydown',e=>{if(e.ctrlKey&&e.key==='Enter')run();});
